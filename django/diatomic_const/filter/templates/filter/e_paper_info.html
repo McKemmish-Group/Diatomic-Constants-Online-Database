@@ -1,0 +1,89 @@
+{% extends 'data_management/base.html' %}
+
+
+
+{%block content%}
+<a href="/data_management/">home</a>
+
+
+
+
+<style>
+    
+    table, th, td {
+                    border:1px solid black;
+                    border-collapse: collapse;}
+
+    
+    
+    th {text-align: center;}
+</style>
+
+
+<table style="width:80%">
+<caption><h1>  Details of {{paper_name}} paper  </h1><caption>
+
+<tr>
+    <th> Journal Name </th>
+    <td> {{paper_object.journal}}</td>
+</tr>
+
+<tr>
+    <th>Title</th>
+    <td> {{paper_object.title}}</td>    
+</tr>
+
+<tr>
+    <th>Author</th>
+    <td>{{paper_object.author}}</td>
+</tr>
+
+
+<tr>
+    <th>Volume</th>
+    <td>{{paper_object.volume}}</td>
+</tr>
+
+<tr>
+    <th>Year</th>
+    <td>{{paper_object.year}}</td>
+</tr>
+
+<tr>
+    <th>Number</th>
+    <td>{{paper_object.number}}</td>    
+</tr>
+
+<tr>
+    <th>Pages</th>
+    <td>{{paper_object.pages}}</td>
+</tr>
+
+<tr>
+    <th>URL</th>
+    <td><a href={{paper_object.url}}> {{paper_object.url}}</a></td>
+</tr>
+
+
+<tr>
+    <th> Constants in paper </th>
+    <td>{{number_of_constants}}</td>
+</tr>
+
+<tr>
+    <th>States in paper</th>
+    <td>{{number_of_states}}</td>
+</tr>
+
+</table>
+
+
+{%endblock%}
+
+
+
+
+
+
+
+

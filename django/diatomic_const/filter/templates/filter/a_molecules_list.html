@@ -1,0 +1,68 @@
+
+<!--This file is for spectrum/molecules_list 
+It just produces the list of  molecules-->
+{% extends 'data_management/base.html'%}
+
+    {% block content%}
+
+
+<style>
+    .list{
+            -webkit-column-count: 2;
+            -moz-column-count: 2;
+            column-count: 2;
+            vertical-align: top;
+}
+
+</style>
+
+
+
+
+
+
+ <a href="/data_management/"> home </a> > <a href="/filter/molecules_list">Molecules list</a>  
+ 
+ <p> Molecules in the database</p>
+  
+   <div>
+     <ol>
+           
+      {% for name in molecules_list %}
+    
+         <li>
+            
+          <a href="/filter/molecules_list/{{name}}"> {{name}} </a>
+   
+         </li>
+      {% endfor %}
+     
+    </ol>
+   </div>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

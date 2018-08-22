@@ -25,6 +25,6 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'), 
     url(r'^accounts/login', auth_views.login, name='login'), 
-    url(r'^spectrum/', include('spectrum.urls')),
+    url(r'^filter/', include('filter.urls')),
 
 ]

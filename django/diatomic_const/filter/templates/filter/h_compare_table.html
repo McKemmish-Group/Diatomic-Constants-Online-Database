@@ -1,0 +1,130 @@
+{% extends 'data_management/base.html' %}
+
+
+
+
+
+{%block content%}
+<a href="/data_management/">home</a> > <a href="/spectrum/molecules_from_Huber_Herzberg_DB">Molecules from Huber Herzberg DB </a> > {{name}} 
+<style>
+
+table, th, td{
+    border: 1px solid black;
+    border-collapse: collapse;
+
+
+}
+
+table{
+    border-collapse:collapse;
+    width:80%;
+
+
+}
+
+
+</style>
+
+
+<p> Specific symbols in the table </p>
+<ul>
+    <li> H  - Data obtained from band head measurements </li>
+    <li> Z  - Data obtained from, or referring to , band origins </li>
+    <li> () - Usertain data </li>
+    <li> [] - Data refer to &#957;=0 or lowest observed level </li>
+    <li> R  - Shaded towards longer wavelengths </li>
+    <li> V  - Shaded towards shorter wavelengths </li>
+</ul>
+<table>
+
+<caption><p> The data for {{name}} molecule from Huber_Herzberg database </p> </caption>
+
+
+<tr style="background-color:lightsalmon;outlilne:thin solid black">
+    <th colspan="5">
+    <h1 align="center">
+    <font color="black">
+        {{name}}
+    </h1>
+    </font>
+    </th>
+</tr>
+
+<tr style="background-color:lightgreen">
+    <th> State </th>
+    <th> State in main DB </th>
+    <th> Constant type </th>
+    <th> Value </th>
+    <th> Constant in main DB </th>
+</tr> 
+
+
+{% for key, value in inner.items %}
+     {%if forloop.counter|divisibleby:2%}
+     
+         {%for constant in value %}
+
+         <tr style="background-color:aquamarine">
+            <td> {{key}} </td>
+                {% if constant.state_in_orbyts == True %}
+                    <td> Yes </td>
+                {%else%}
+                    <td> No </td>
+                {%endif%}
+            <td> {{constant.constant_type}}</td>
+            <td> {{constant.value}} </td>
+           
+                {%if constant.constant_in_orbyts == True %}
+                    <td> Yes </td>
+                {%else%}
+                    <td> No </td>
+                {%endif%} 
+        </tr>
+               
+       
+
+        {%endfor%}
+    
+    {%else%}
+       {%for constant in value %}
+
+         <tr style="background-color:lavender">
+            <td> {{key}} </td>
+                {% if constant.state_in_orbyts == True %}
+                    <td> Yes </td>
+                {%else%}
+                    <td> No </td>
+                {%endif%}
+            <td> {{constant.constant_type}}</td>
+            <td> {{constant.value}} </td>
+           
+                {%if constant.constant_in_orbyts == True %}
+                    <td> Yes </td>
+                {%else%}
+                    <td> No </td>
+                {%endif%} 
+        </tr>
+               
+        
+
+        {%endfor%}
+        
+    {%endif%}    
+
+    {%if forloop.counter != states_number %}
+        <tr> <td colspan="5" height="5" > </td> 
+    {%endif%}   
+    
+    
+
+
+{% endfor %}
+
+
+
+
+
+
+</table>
+
+{%endblock%}

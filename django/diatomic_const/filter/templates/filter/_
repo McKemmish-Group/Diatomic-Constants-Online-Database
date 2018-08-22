@@ -1,0 +1,27 @@
+{% extends 'data_management/base.html' %}
+
+
+
+
+
+{% block content %}
+
+<a href='/data_management/'>home </a>
+
+<p> Constants List </p>
+
+
+<ol>
+
+{%for i in constants%}
+    <li>
+       {{i.constant_type}}
+    </li>
+
+
+{%endfor%}
+
+</ol>
+
+
+{%endblock content%}

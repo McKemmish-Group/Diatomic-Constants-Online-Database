@@ -121,6 +121,9 @@ class New_data(models.Model):
     is_uncertain=models.BooleanField(default=False)    
     extra_symbol=models.CharField(max_length=200, blank=True)
     alternate_type=models.BooleanField(default=False)
-  
+    in_main_database=models.BooleanField(default=False)    
+    state_in_orbyts=models.BooleanField(default=False)
+    constant_in_orbyts=models.BooleanField(default=False)
+
     def __unicode__(self):
         return unicode(self.symbol) + "_" + unicode(self.state) + "_" + unicode(self.constant_type)

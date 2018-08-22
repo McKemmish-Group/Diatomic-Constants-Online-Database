@@ -1,0 +1,33 @@
+{%extends 'data_management/base.html' %}
+
+
+
+
+
+
+
+{%block content %}
+<a href="/data_management/">home</a> > <a href="/spectrum/molecules_from_Huber_Herzberg_DB">Molecules from Huber Herzberg DB </a>
+
+
+<p> Molecules from Huber Herzberg database</p>
+<p> This data is to be moved to main DB </p>
+
+<ol>
+
+
+{%for molecule in molecules_from_HH %}
+<li>
+    <a href="/filter/molecules_from_Huber_Herzberg_DB/{{molecule}}"> {{molecule}} </a>
+
+</li>
+
+{%endfor%}
+
+
+
+
+</ol>
+
+
+{% endblock %}

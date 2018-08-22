@@ -7,7 +7,7 @@
 {% if molecular_state_list %}
 
     <ul>
-    <li> Edited this document
+    
            {% for molecular_state in molecular_state_list %}
 {% if 'ScO' in molecular_state %}
 <li><a href="/data_management/Molecular_states/{{ molecular_state.molecular_state_id }}/">{{ molecular_state }}</a></li>

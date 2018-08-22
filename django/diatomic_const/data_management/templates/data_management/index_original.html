@@ -1,0 +1,27 @@
+
+
+{% extends 'data_management/base.html' %}
+
+
+{% block content %}
+<a href="/data_management/">home</a>
+<hr>
+
+{% if table_list %}
+    <ol>
+    {% for table in table_list %}
+        <li><p><a href="/data_management/{{ table }}/">{{ table }}</a></p></li>
+    {% endfor %}
+
+        <li><p> <a href="/spectrum/molecules_list">Molecules List</a> </p></li>
+
+
+        <li><p> <a href="/spectrum/main_table">Main Table</a> </p></li>
+    </ol>
+<!--The code between commented lines is added by Nursultan. -->
+
+
+{% else %}
+    <p>No molecular states available.</p>
+{% endif %}
+{% endblock content %}

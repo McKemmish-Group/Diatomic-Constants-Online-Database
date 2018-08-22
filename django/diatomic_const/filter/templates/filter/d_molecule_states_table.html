@@ -1,0 +1,229 @@
+{% extends 'data_management/base.html' %}
+
+
+
+{% block content %}
+
+<a href="/data_management/">home</a> > <a href="/spectrum/molecules_list/">Molecules list</a>> {{name}}  
+<style>
+table, th, td{ 
+        border: 1px solid black;
+        border-collapse: collapse;
+}
+
+
+
+
+table#t01{
+        
+        border-collapse:collapse;
+        width:50%;
+}
+
+table#t01 td {
+        border:1px solid #dddddd;
+        text-align: left;
+
+}
+
+table#t01 th {
+        border:1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+
+}
+
+table#t01 tr:nth-child(even){
+        background-color: #dddddd;
+}
+
+
+
+
+
+</style>
+
+
+<!-- This line loads custom made filter written by me-->
+<!-- This allows to use "some_dictionary|get_item:key"-->
+{%load dictionary_lookup%}
+
+
+<table id="t01">
+<caption><h2> Constants in table </h2></caption> 
+    <tr>
+        <th> Symbol</th>
+        <th> Description </th>
+    </tr>
+
+        {%for symbol in equilibrium_types %}
+          
+            <tr>
+                <td>{{symbol}}</td>
+                
+
+                <td>{{symbols_dictionary|get_item:symbol}}
+                    {%if forloop.counter == 2 %}
+                        (&#197;)
+                    {%else%}
+                        (cm<sup>-1</sup>)
+                    {%endif%}
+                </td>
+            
+           </tr>
+          
+        {%endfor%} 
+</table>
+
+<p align="left"> The cells with yellow background represent the error in input data </p>
+
+
+<p align="left">
+    {%if isotopologs|length == 1 %}
+        There is not yet information about isotopologes
+    {%else%}
+        There are {{isotopologs|length}} isotopologes in the data base
+    {%endif%}
+</p>
+
+
+
+
+
+
+
+
+<table class="style2", style="width:100%">
+<caption><h1>The table for {{name}} molecule </h1><caption>
+
+ <!--  <ol>  -->
+{%for isotopolog in isotopologs %}
+<tr style="background-color:Tomato;outline:thin solid black">
+    <th colspan="14">
+    <h1 align="center">
+    <font color="black">
+        {{isotopolog}}
+    </h1>
+    </font>
+    </th>
+</tr>
+
+<tr style="background-color:mediumseagreen">
+    <th>State Tag</th>
+    <th>Notation</th>
+    <th>Paper</th>
+    {%for constant in equilibrium_types %}
+        <th id={{constant}}>{{constant}}</th>
+    {%endfor%}
+</tr>
+
+{%with states_list=main|get_item:isotopolog%}
+{%for state in states_list %}
+{%with object=states_list|get_item:state|get_item:"state_object"%}
+{%with ordered_papers=states_list|get_item:state|get_item:"ordered_papers"%}
+{%with first_paper=ordered_papers.0%}
+{%with rowspan=states_list|get_item:state|get_item:"rowspan"%}
+<tr style="background-color:lightgray;">
+    <td rowspan={{rowspan}}>{{state}}</td>
+    <td rowspan={{rowspan}}>{{object.excitation_index}} <sup>{{object.total_electronic_spin}}</sup>{{object.electronic_symmetry}}</td>
+   
+    {%if ordered_papers|length != 0%}
+    <!-- Make link for each paper-->
+    <td><a href="/spectrum/molecules_list/{{isotopolog}}/{{first_paper}}/">{{first_paper}}</a></td>
+    <!-- Loop to display values only for the first entry -->
+     
+     {%with data_of_first=states_list|get_item:state|get_item:"papers_and_values"|get_item:first_paper%}
+        {%for const_th in equilibrium_types%}
+            
+                 {%with inner_list=data_of_first|get_item:const_th%}
+                    {%if inner_list|length == 1%}
+                     <td>{{inner_list.0.value}}</td>
+
+                    {%elif inner_list|length > 1%}
+                       <td style="background-color:#F7DC6F;">
+                        <!-- This loop is just for writing commas -->
+                        {%for entry in inner_list%}
+                            {{entry.value}}
+                            {%if forloop.counter != inner_list|length%}
+                                ;
+                            {%endif%}
+                        {%endfor%}
+                       </td> 
+                    {%elif inner_list|length == 0%}
+                        <td align="center"> --- </td>
+                    {%endif%}
+                 {%endwith%} 
+            
+            
+        {%endfor%} 
+    {%endwith%}
+   
+    {%else%}
+        <!-- Empty for first paper -->
+             <td> --- </td>
+        <!-- Empty values for constants-->
+        {%for const_th in equilibrium_types%}
+             <td> --- </td>         
+
+        {%endfor%} 
+   
+
+    {%endif%}
+</tr>
+
+    <!-- DIsplay of other papers if there are more than 1 of them -->
+    {%for paper in ordered_papers%}    
+        {%if paper != first_paper%}        
+            <tr style="background-color:lightgray;">
+                <td>   
+                 <a href="/spectrum/molecules_list/{{isotopolog}}/{{paper}}/">{{paper}} </a>
+                </td> 
+                 {%with data_of_paper=states_list|get_item:state|get_item:"papers_and_values"|get_item:paper%}
+                    {%for const_th in equilibrium_types%}
+                        {%with inner_list=data_of_paper|get_item:const_th%}
+                            {%if inner_list|length == 1%}
+                                <td>{{inner_list.0.value}}</td>
+                            {%elif inner_list|length > 1 %}
+                                <td style="background-color:#F7DC6F;">
+                                {% for entry in inner_list %}
+                                    {{entry.value}}
+                                    
+                                    {%if forloop.counter != inner_list|length %}                                    
+                                        ;
+                                    {%endif%}
+
+                                {%endfor%}
+                                </td>
+                            {%elif inner_list|length == 0%}
+                                <td align="center"> ---  </td>
+                            {%endif%}
+                        {%endwith%}
+                    {%endfor%}
+                 {%endwith%}   
+                
+                
+            </tr>
+        {%endif%}
+    {%endfor%}
+
+
+{%endwith%}
+{%endwith%}
+{%endwith%}
+{%endwith%}
+{%endfor%}
+{%endwith%}
+
+
+{%endfor%}
+
+<!--   </ol>   -->
+
+
+
+</table>
+
+
+
+
+{%endblock content%}
