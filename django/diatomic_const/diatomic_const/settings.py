@@ -25,7 +25,7 @@ SECRET_KEY = 'h2)p5df#peaxp_4uffv32%k#4h#el757_i8q4!33x%tgj==(a#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True 
 
-ALLOWED_HOSTS = [u'octahedron.theory.phys.ucl.ac.uk']
+#ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -76,16 +76,25 @@ WSGI_APPLICATION = 'diatomic_const.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'diatomic_const_utf8',
-	'USER': 'diatomic_admin',
-	'PASSWORD': 'Golden11ama.',
-	'HOST': 'localhost',
-	'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR,'db.sqlite3'),
     }
 }
+
+#DATABASES = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.postgresql_psycopg2',
+   #     'NAME': 'diatomic_const_utf8',
+#	'USER': 'diatomic_admin',
+#	'PASSWORD': 'Golden11ama.',
+#	'HOST': 'localhost',
+#	'PORT': '',
+ #   }
+#}
 
 
 # Password validation

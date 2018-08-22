@@ -488,7 +488,7 @@ def large_table(request):
 
 def molecules_from_HH(request):
     import numpy as np
-    molecule_names_list=np.load("/srv/www/diatomic_const/molecules_names_list.npy")
+    molecule_names_list=np.load("molecules_names_list.npy")
     
     variables={'molecules_from_HH':molecule_names_list} 
     return render(request, 'filter/g_list_from_HH.html',variables )
