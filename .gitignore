@@ -1,5 +1,5 @@
 *.sqlite3*
-Icon\?
+Icon?
 *.pyc
 .directory
 *.swp
