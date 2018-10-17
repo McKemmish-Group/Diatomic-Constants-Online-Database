@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'h2)p5df#peaxp_4uffv32%k#4h#el757_i8q4!33x%tgj==(a#'
+SECRET_KEY = '*@*ht(g(^+jio1r3o=9&0080*)ykrj%6ks=cv1n3gk0_5fogi-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True 
+DEBUG = False
 
-#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['test.orbyts-dc.chem.unsw.edu.au']
 
 
 # Application definition
@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'diatomic_const.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR,'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'diatomic_const_utf8',
+        'USER': 'orbytsdc',
+        'PASSWORD': 'Golden11ama.',
+        'HOST': '127.0.0.1',
+        'PORT': '', 
     }
 }
 
@@ -133,7 +137,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 STATIC_URL = ("/static/")
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+STATIC_ROOT = ("/srv/www/httpd/vhosts/test.orbyts-dc.chem.unsw.edu.au/docs/static")
 
 LOGIN_REDIRECT_URL = '/data_management'
 
